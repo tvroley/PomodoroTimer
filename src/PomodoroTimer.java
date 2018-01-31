@@ -33,7 +33,12 @@ public class PomodoroTimer extends TimerTask {
                 timeRemaining = 30;
             }
         } else {
-            System.out.println(timeRemaining--);
+            //System.out.println(timeRemaining--);
+            timeRemaining--;
         }
+    }
+
+    public int getTimeRemaining(){
+        return this.timeRemaining;
     }
 }

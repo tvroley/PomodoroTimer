@@ -1,26 +1,38 @@
+import java.util.Scanner;
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  *
  */
 public class PomodoroTimerDriver {
-    //public static volatile boolean running = true;
+    public static PomodoroTimer myPomodoroTimer;
+    public static Timer myTimer;
 
     public static void main(String[] args) {
-        PomodoroTimerDriver.scheduleTimer();
+        Scanner myScanner = new Scanner(System.in);
+        PomodoroTimerDriver.startTimer();
+        String input = myScanner.nextLine();
+        while(!input.equals("stop")){
+            if(input.equals("time")){
+                System.out.println(myPomodoroTimer.getTimeRemaining());
+            }
+            input = myScanner.nextLine();
+        }
+        PomodoroTimerDriver.stopTimer();
     }
 
-    /*public void stopTimer(){
-        running = false;
-    }*/
-
-    public static void scheduleTimer() {
-        //while (running) {
+    public static void startTimer() {
         System.out.println("Pomodoro timer started");
         System.out.println("start working");
-        Timer myTimer = new Timer();
-        PomodoroTimer myPomodoroTimer = new PomodoroTimer();
+        myTimer = new Timer();
+        myPomodoroTimer = new PomodoroTimer();
         myTimer.scheduleAtFixedRate(myPomodoroTimer, 0, 1000);
+    }
+
+    public static void stopTimer(){
+        myPomodoroTimer.cancel();
+        myTimer.cancel();
+        myTimer.purge();
+        System.out.println("Pomodoro timer stopped");
     }
 }
