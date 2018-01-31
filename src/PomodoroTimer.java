@@ -1,40 +1,41 @@
 import java.util.TimerTask;
 
 public class PomodoroTimer extends TimerTask {
-    private int timeRemaining = 25;
-    private boolean working = true;
-    private int round = 4;
+    public static final int ROUNDS_PER_CYCLE = 4;
+    public static final int SECONDS_IN_A_WORK_ROUND = 25;
+    public static final int SECONDS_IN_A_BREAK_ROUND = 30;
+    public static final int SECONDS_IN_A_BREAK = 5;
+    private int timeRemaining;
+    private boolean working;
+    private int round;
 
     public PomodoroTimer(){
-        working = true;
-        round = 4;
-        timeRemaining = 25;
+        this.working = true;
+        this.round = ROUNDS_PER_CYCLE;
+        this.timeRemaining = SECONDS_IN_A_WORK_ROUND;
     }
 
     @Override
     public void run(){
-        if (timeRemaining < 1) {
-            if(round > 0){
-                working = !working;
-                if(working){
-                    System.out.println("Rounds remaining: " + round);
+        if (this.timeRemaining < 1) {
+            if(this.round > 0){
+                this.working = !this.working;
+                if(this.working){
+                    System.out.println("Rounds remaining: " + this.round);
                     System.out.println("start working");
-                    timeRemaining = 25;
+                    this.timeRemaining = SECONDS_IN_A_WORK_ROUND;
                 } else {
                     System.out.println("start break");
-                    timeRemaining = 5;
-                    round--;
+                    this.timeRemaining = SECONDS_IN_A_BREAK;
+                    this.round--;
                 }
             } else{
                 System.out.println("Start break round");
-                //myTimer.cancel();
-                //myTimer.purge();
-                round = 4;
-                timeRemaining = 30;
+                this.round = ROUNDS_PER_CYCLE;
+                this.timeRemaining = SECONDS_IN_A_BREAK_ROUND;
             }
         } else {
-            //System.out.println(timeRemaining--);
-            timeRemaining--;
+            this.timeRemaining--;
         }
     }
 
